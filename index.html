@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>十月廿九 · 刘红丽的生日页</title>
-<meta name="description" content="十月廿九的生日页：诗句、桂花、霜降节气、一封信，还有一只会带着愿望飞上天空的纸飞机。由 YuTu (于途) 写给红丽。">
+<title>10月29日 · 刘红丽的生日页</title>
+<meta name="description" content="10月29日的生日页：诗句、桂花、霜降节气、一封信，还有一只会带着愿望飞上天空的纸飞机。由 YuTu (于途) 写给红丽。">
 <meta name="theme-color" content="#1d2233">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='86'%3E%F0%9F%8F%AE%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="website">
-<meta property="og:title" content="十月廿九 · 刘红丽的生日页">
+<meta property="og:title" content="10月29日 · 刘红丽的生日页">
 <meta property="og:description" content="有诗，有桂花，有节气，有一封信，还有一只会带着愿望飞上天空的纸飞机。">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -432,7 +432,7 @@
 <body id="top" class="locked">
 
 <div class="cover" id="cover" role="dialog" aria-modal="true" aria-label="欢迎">
-  <div class="c-date" id="cDate">十月廿九</div>
+  <div class="c-date" id="cDate">10月29日</div>
   <div class="c-sub" id="cSub">一个写给红丽的生日页 · 于途</div>
   <button class="c-open" id="cOpen" type="button" aria-label="轻触开启，音乐会自动播放">轻触开启</button>
   <div class="c-note" id="cNote">会有一首轻轻的音乐</div>
@@ -446,7 +446,7 @@
 
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a class="brand keep" href="#top">十月廿九 · 红丽</a>
+    <a class="brand keep" href="#top">10月29日 · 红丽</a>
     <nav class="nav-links" aria-label="页面导航">
       <a href="#poem">诗</a>
       <a href="#osmanthus">桂花</a>
@@ -475,7 +475,7 @@
   <section class="hero" id="hero" aria-labelledby="heroTitle">
     <canvas id="heroScene" aria-hidden="true"></canvas>
     <div class="wrap">
-      <span class="kicker" style="color: var(--gold)">霜降时节 · 农历十月廿九 · 公历 10 月 29 日</span>
+      <span class="kicker" style="color: var(--gold)">霜降时节 · 10 月 29 日</span>
       <h1 id="heroTitle">
         <span class="line">刘红丽，</span>
         <span class="line">你来到这个世界的那一天。</span>
@@ -536,7 +536,7 @@
   <!-- LETTER -->
   <section class="rule" id="letter" aria-labelledby="letterTitle">
     <div class="wrap narrow">
-      <div class="seal reveal" aria-hidden="true">寿</div>
+      <div class="seal reveal" aria-hidden="true">福</div>
       <h2 id="letterTitle" class="title reveal" style="margin-top: 24px">一封信</h2>
       <article class="letter-wrap reveal d1">
         <p>红丽，谢谢你一直以来对我的帮助。</p>
@@ -544,7 +544,7 @@
         <p>新的一岁，不必急着成为谁。慢慢来，好好吃饭，按时睡觉，不开心的时候就说出来。有需要帮助的时候，我一直都在。</p>
         <p>祝你平安，顺遂，想要的东西都慢慢来到你身边。</p>
         <p>生日快乐。</p>
-        <p class="sign">—— 于途 YuTu，十月廿九</p>
+        <p class="sign">—— 于途 YuTu，10月29日</p>
       </article>
     </div>
   </section>
@@ -601,7 +601,7 @@
 
 <footer class="night rule">
   <div class="wrap narrow">
-    <div class="seal" aria-hidden="true">寿</div>
+    <div class="seal" aria-hidden="true">福</div>
     <p class="closing">愿你永远是你自己。</p>
     <p class="muted"><a href="#top">回到顶部</a></p>
     <p class="small">YuTu (于途) · 一个写给红丽的生日页</p>
@@ -1319,7 +1319,7 @@
       apply(1);
       await tween(ms, (p) => apply(Math.cos(p * Math.PI)));
       if (unfold) {
-        await sleep(quick ? 0 : 260);
+        await sleep(quick ? 0 : 110);
         await tween(ms * 0.8, (p) => apply(Math.cos((1 - p) * Math.PI)));
         nr.parentNode.replaceChild(old, nr);
         root = old;
@@ -1354,14 +1354,14 @@
 
     // 3. folding the paper plane
     const R2 = Math.SQRT1_2, c1 = Math.cos(Math.PI / 8), s1 = Math.sin(Math.PI / 8);
-    const S = quick ? 0 : 1;
+    const S = quick ? 0 : 0.45;                          // fold speed: ~2.2x faster than before
     await fold([100, 0], [1, 0], 650 * S, true);
     await fold([100, 0], [R2, R2], 800 * S);            // top-left corner to the centre line
     await fold([100, 0], [-R2, R2], 800 * S);           // top-right corner
     await fold([100, 0], [c1, s1], 900 * S);              // left slanted edge to the centre
     await fold([100, 0], [-c1, s1], 900 * S);             // right slanted edge
     root.insertAdjacentHTML("beforeend", '<line x1="100" y1="0" x2="100" y2="280" stroke="#ffd98a" stroke-width="1.1" stroke-opacity=".9"/>');
-    if (!quick) { await sleep(250); }
+    if (!quick) { await sleep(120); }
     if (dim) { dim.style.opacity = "0"; setTimeout(() => dim.remove(), 600); }
 
     // 4. hand over to the small paper plane: it flies exactly like the other planes on the page
@@ -1451,7 +1451,7 @@
     [".brand", "Oct 29 · Hongli"],
     [".nav-links a[href='#poem']", "Poem"], [".nav-links a[href='#osmanthus']", "Osmanthus"],
     [".nav-links a[href='#letter']", "Letter"], [".nav-links a[href='#terms']", "Terms"], [".nav-links a[href='#wish']", "Wish"],
-    [".hero .kicker", "Frost’s Descent season · Lunar 10/29 · Gregorian October 29"],
+    [".hero .kicker", "Frost’s Descent season · October 29"],
     [".hero h1 .line:nth-child(1)", "Liu Hongli,"],
     [".hero h1 .line:nth-child(2)", "the day you came into this world."],
     [".hero .lede", "Happy birthday! A birthday page for Hongli: a poem, autumn osmanthus, the solar terms, a letter, and a paper plane that carries your wish into the sky."],
@@ -1610,7 +1610,7 @@
     player.setAttribute("aria-label", isEn() ? "Background music" : "背景音乐");
     if (songBtn) songBtn.textContent = playing ? (isEn() ? "♪ Pause the music" : "♪ 暂停音乐") : (isEn() ? "♪ Hear a birthday song" : "♪ 听一首生日歌");
     if (!cover.classList.contains("gone")) {
-      $("cDate").textContent = isEn() ? "Oct 29" : "十月廿九";
+      $("cDate").textContent = isEn() ? "Oct 29" : "10月29日";
       $("cSub").textContent = isEn() ? "A birthday page for Hongli · YuTu" : "一个写给红丽的生日页 · 于途";
       cOpen.textContent = isEn() ? "Tap" : "轻触开启";
       cOpen.setAttribute("aria-label", isEn() ? "Tap to open; music will play" : "轻触开启，音乐会自动播放");
