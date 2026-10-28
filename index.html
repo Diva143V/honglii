@@ -992,14 +992,19 @@
   const FLOWER_DARK = [[255, 206, 92], [255, 176, 205], [255, 242, 230], [255, 140, 120]];
   const FLOWER_LIGHT = [[214, 150, 30], [226, 104, 150], [205, 62, 50], [150, 90, 200]];
   // after a rocket bursts, flowers and petals drift down from the burst point
+  const isPhone = () => window.innerWidth < 700 || matchMedia("(pointer: coarse)").matches;
   function spawnFlowers(x, y, light, soft, S) {
     const pal = light ? FLOWER_LIGHT : FLOWER_DARK;
-    const n = soft ? 16 : 26;
+    const phone = isPhone();
+    // phones: far fewer, smaller, shorter-lived flowers, and never more than a handful on screen at once
+    let n = phone ? (soft ? 5 : 8) : (soft ? 16 : 26);
+    if (phone) { const live = sparks.reduce((c, q) => c + (q.flower ? 1 : 0), 0); n = Math.max(0, Math.min(n, 24 - live)); }
+    const fk = phone ? 0.6 : 1, dk = phone ? 2.2 : 1;
     for (let i = 0; i < n; i++) {
       const r = Math.random(), petals = r < 0.45 ? 4 : r < 0.85 ? 5 : 1;
-      const size = petals === 4 ? 5 + Math.random() * 3 : petals === 5 ? 8 + Math.random() * 5 : 9 + Math.random() * 4;
+      const size = fk * (petals === 4 ? 5 + Math.random() * 3 : petals === 5 ? 8 + Math.random() * 5 : 9 + Math.random() * 4);
       const a = Math.random() * Math.PI * 2, v = (0.4 + Math.random() * 2.4) * S * 0.6;
-      sparks.push({ flower: true, x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 0.6, life: 1, decay: 0.0016 + Math.random() * 0.0012,
+      sparks.push({ flower: true, x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 0.6, life: 1, decay: (0.0016 + Math.random() * 0.0012) * dk,
         term: 0.7 + Math.random() * 0.9, rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.05, flip: Math.random() * 6.28, vf: 0.04 + Math.random() * 0.05,
         phase: Math.random() * 6.28, rgb: pal[(Math.random() * pal.length) | 0], core: light ? [190, 90, 20] : [255, 130, 60], petals, size });
     }
@@ -1010,7 +1015,7 @@
     glows.push({ x, y, r: Math.max(big * 1.05, 440), life: 1, decay: 0.017, a: light ? (soft ? 0.2 : 0.3) : (soft ? 0.34 : 0.62), rgb: col });   // coloured sky light
     if (!light) glows.push({ x, y, r: Math.max(big * 0.36, 170), life: 1, decay: 0.05, a: soft ? 0.2 : 1, rgb: [255, 250, 235] });   // white-hot flash
     const alt = light ? LIGHT_COLORS[(Math.random() * LIGHT_COLORS.length) | 0] : SHOW_COLORS[(Math.random() * SHOW_COLORS.length) | 0];
-    const n = kind === "ring" ? 140 : kind === "willow" ? 170 : kind === "double" ? 200 : 260;
+    const n = Math.round((kind === "ring" ? 140 : kind === "willow" ? 170 : kind === "double" ? 200 : 260) * (isPhone() ? 0.55 : 1));
     const rr = (0.8 + S * 0.25);
     for (let i = 0; i < n; i++) {
       let a = Math.random() * Math.PI * 2, v, decay = 0.0105 + Math.random() * 0.008, grav = 0.04, rgb = col;
@@ -1066,12 +1071,12 @@
     const one = () => launchRocket(fxW * (0.08 + Math.random() * 0.84), fxH * (0.1 + Math.random() * 0.45),
       SHOW_COLORS[(Math.random() * SHOW_COLORS.length) | 0], kinds[(Math.random() * kinds.length) | 0], true);
     const tick = () => {
-      if (!document.hidden && !wishInView && sparks.length < 2500) {
+      if (!document.hidden && !wishInView && sparks.length < (isPhone() ? 900 : 2500)) {
         loopCount++;
         if (loopCount % 9 === 0) { one(); setTimeout(one, 200); setTimeout(one, 420); }   // a little finale now and then
         else { one(); if (Math.random() < 0.3) setTimeout(one, 260); }
       }
-      setTimeout(tick, 1200 + Math.random() * 1500);
+      setTimeout(tick, (1200 + Math.random() * 1500) * (isPhone() ? 1.6 : 1));
     };
     tick();
   }
